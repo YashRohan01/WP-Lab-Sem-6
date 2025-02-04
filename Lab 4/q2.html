@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        /* Basic Styling for Calculator */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .calculator {
+            display: inline-block;
+            border: 2px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: 220px;
+            height: 40px;
+            text-align: right;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .row {
+            margin-bottom: 10px;
+        }
+    </style>
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Variable to hold current value being typed
+            let currentInput = '';
+
+            // When number or operator is clicked
+            $('.button').click(function() {
+                currentInput += $(this).text(); // Add the value of the clicked button to currentInput
+                $('#display').val(currentInput); // Update the display with currentInput
+            });
+
+            // When Clear button is clicked
+            $('#clear').click(function() {
+                currentInput = '';
+                $('#display').val(currentInput); // Clear the display
+            });
+
+            // When Equal button is clicked
+            $('#equals').click(function() {
+                try {
+                    currentInput = eval(currentInput).toString(); // Evaluate the current expression
+                    $('#display').val(currentInput); // Display the result
+                } catch (e) {
+                    $('#display').val('Error'); // If there's an error, show error
+                    currentInput = '';
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="calculator">
+        <h2>Calculator</h2>
+        <!-- Display for input/output -->
+        <input type="text" id="display" disabled />
+
+        <!-- Calculator Buttons -->
+        <div class="row">
+            <button class="button">7</button>
+            <button class="button">8</button>
+            <button class="button">9</button>
+            <button class="button">/</button>
+        </div>
+        <div class="row">
+            <button class="button">4</button>
+            <button class="button">5</button>
+            <button class="button">6</button>
+            <button class="button">*</button>
+        </div>
+        <div class="row">
+            <button class="button">1</button>
+            <button class="button">2</button>
+            <button class="button">3</button>
+            <button class="button">-</button>
+        </div>
+        <div class="row">
+            <button class="button">0</button>
+            <button class="button">.</button>
+            <button id="equals">=</button>
+            <button class="button">+</button>
+        </div>
+        <div class="row">
+            <button id="clear">C</button>
+        </div>
+    </div>
+
+</body>
+</html>

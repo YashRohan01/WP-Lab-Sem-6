@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table and Image Animation</title>
+    <style>
+        /* Basic Styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 300px;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        /* Alternate Row Colors */
+        tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #e2e2e2;
+        }
+
+        img {
+            width: 150px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+        }
+
+        /* Container for table and image to move together */
+        .move-container {
+            display: inline-block;
+        }
+    </style>
+    <!-- jQuery Library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#moveButton').click(function() {
+                // Move the container (table and image) from right to left
+                $('.move-container').animate({
+                    left: '-50%'  // Move the element 100% to the left
+                }, 2000); // Duration of the animation in milliseconds
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <h1>Table and Image Animation</h1>
+    
+    <!-- Move Container that holds the table and image -->
+    <div class="move-container" style="position: relative;">
+        <!-- Table with 3x3 dimensions -->
+        <table>
+            <tr>
+                <td>Arun</td>
+                <td>60</td>
+                <td><img src = "./arnu.jpeg"></td>
+            </tr>
+            <tr>
+                <td>Anita</td>
+                <td>58</td>
+                <td><img src = "./anita.jpeg"></td>
+            </tr>
+            <tr>
+                <td>Anku</td>
+                <td>27</td>
+                <td><img src = "./anku.jpeg"></td>
+            </tr>
+        </table>
+
+        <!-- Image -->
+    </div>
+
+    <!-- Button to Trigger the Animation -->
+    <button id="moveButton">Move Table & Image</button>
+
+</body>
+</html>

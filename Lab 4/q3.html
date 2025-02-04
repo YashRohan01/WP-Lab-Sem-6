@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Card</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .form-container {
+            flex: 1; /* Takes up 50% of the space */
+            margin-right: 20px;
+        }
+
+        .card-container {
+            flex: 1; /* Takes up 50% of the space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh; /* Set to full screen height */
+        }
+
+        select, input[type="text"], input[type="checkbox"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%; /* Ensures the card also takes up full height */
+            overflow: auto; /* Optional, in case the text is too long */
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Update the card when the "Update" button is clicked
+            $('button').click(function(event) {
+                event.preventDefault(); // Prevent the form from submitting
+
+                // Get selected values
+                var backgroundColor = $('#backgroundColor').val();
+                var font = $('#Font').val();
+                var fontSize = $('#backgroundColorSize').val();
+                var borderStyle = $('input[name="group1"]:checked').val();
+                var greetingText = $('#suggestions').val();
+                var addImage = $('#addImage').prop('checked'); // Check if the checkbox is selected
+
+                // Set the background color, font, font size, and border style of the card
+                var card = $('.card');
+                card.css({
+                    'background-color': backgroundColor,
+                    'font-family': font,
+                    'font-size': fontSize,
+                    'border': borderStyle === 'Option 1' ? 'none' : borderStyle === 'Option 2' ? 'double' : 'solid'
+                });
+
+                // Update the greeting text in the card
+                card.text(greetingText);
+
+                // If the checkbox is checked, add a default image
+                if (addImage) {
+                    // Check if the image is already there to prevent adding it multiple times
+                    if ($('.card img').length === 0) {
+                        card.append('<img src="./budday.jpeg" alt="Default Image">');
+                    }
+                } else {
+                    // Remove the image if checkbox is unchecked
+                    $('.card img').remove();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Left side form container -->
+    <div class="form-container">
+        <label for="backgroundColor">Choose a Background Colour</label>
+        <br/>
+        <select id="backgroundColor">
+            <option value="black">Black</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="yellow">Yellow</option>
+        </select>
+        <br/>
+        <br/>
+
+        <label for="Font">Choose a Font</label>
+        <br/>
+        <select id="Font">
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Algerian">Algerian</option>
+            <option value="Sans-serif">Sans-Serif</option>
+            <option value="Pinyon">Pinyon</option>
+        </select>
+        <br/>
+        <br/>
+
+        <label for="backgroundColorSize">Choose a Font Size</label>
+        <br/>
+        <select id="backgroundColorSize">
+            <option value="12pt">Small</option>
+            <option value="15pt">Normal</option>
+            <option value="18pt">Large</option>
+            <option value="20pt">XL</option>
+            <option value="22pt">XXL</option>
+        </select>
+        <br/>
+        <br/>
+
+        <label>Choose a Border style</label><br/>
+        <label for="option1">
+            <input type="radio" id="option1" name="group1" value="Option 1">
+            None
+        </label>
+        <br>
+        <label for="option2">
+            <input type="radio" id="option2" name="group1" value="Option 2">
+            Double
+        </label>
+        <br>
+        <label for="option3">
+            <input type="radio" id="option3" name="group1" value="Option 3">
+            Solid
+        </label>
+        <br/>
+        <br/>
+
+        <label for="addImage">Add default picture?</label>
+        <input type="checkbox" id="addImage">
+    
+
+        <form action="#" method="POST">
+            <label for="suggestions">Enter the greeting text below</label><br>
+            <textarea id="suggestions" name="suggestions" placeholder="Write your greeting here..."></textarea><br>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
+    <!-- Right side card container -->
+    <div class="card-container">
+        <div class="card">
+            <!-- The card content will be updated here -->
+            Your greeting will appear here.
+        </div>
+    </div>
+
+</body>
+</html>

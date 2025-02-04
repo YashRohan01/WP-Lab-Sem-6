@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        select, input[type="text"], input[type="checkbox"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#produceBillButton').click(function() {
+                // Get selected brand and product type
+                var selectedBrand = $('#brandDropdown').val();
+                var quantity = $('#quantityTextbox').val();
+                var productType = [];
+
+                // Get checked product types
+                $('input[name="product"]:checked').each(function() {
+                    productType.push($(this).val());
+                });
+
+                // Check if quantity is a number
+                if (isNaN(quantity) || quantity <= 0) {
+                    alert("Please enter a valid quantity.");
+                    return;
+                }
+
+                // Prepare the bill summary
+                var bill = "Bill Summary: <br><br>";
+                bill += "Brand: " + selectedBrand + "<br>";
+                bill += "Quantity: " + quantity + "<br>";
+                bill += "Product Type: " + (productType.length > 0 ? productType.join(", ") : "None selected") + "<br>";
+
+                // Display the result
+                $('#result').html(bill);
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Generate Bill</h2>
+        
+        <!-- Dropdown for brand selection -->
+        <label for="brandDropdown">Select Brand:</label>
+        <select id="brandDropdown">
+            <option value="HP">HP</option>
+            <option value="Nokia">Nokia</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Motorola">Motorola</option>
+            <option value="Apple">Apple</option>
+        </select>
+
+        <!-- Checkboxes for product selection -->
+        <label>Select Product Type:</label><br>
+        <input type="checkbox" name="product" value="Mobile"> Mobile<br>
+        <input type="checkbox" name="product" value="Laptop"> Laptop<br>
+
+        <!-- Textbox for entering quantity -->
+        <label for="quantityTextbox">Enter Quantity:</label>
+        <input type="text" id="quantityTextbox" placeholder="Enter Quantity">
+
+        <!-- Button to produce bill -->
+        <button id="produceBillButton">Produce Bill</button>
+
+        <!-- Display Bill Summary -->
+        <div class="result" id="result"></div>
+    </div>
+
+</body>
+</html>
